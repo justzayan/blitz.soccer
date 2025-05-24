@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Live Stats - Blitz Soccer Discord Bot</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navbar-height: 68px;
+        --primary: #1e90ff;
+        --accent: #00c3ff;
+        --bg-dark: #181b22;
+        --bg: #111;
+        --text: #fff;
+        --text-light: #cfd8dc;
+        --stats-green: #43e97b;
+        --stats-red: #ff5e62;
+        --stats-purple: #a770ef;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: "Montserrat", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        min-width: 100vw;
+        overflow-x: hidden;
+      }
+      .navbar {
+        width: 100vw;
+        left: 0;
+        top: 0;
+        background: rgba(18, 22, 32, 0.92);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: var(--navbar-height);
+        box-sizing: border-box;
+        border-bottom: 1.5px solid #1e90ff44;
+        position: relative;
+        z-index: 2;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-logo img {
+        width: 38px;
+        filter: drop-shadow(0 0 8px #1e90ff88);
+        border-radius: 50%;
+        background: #fff;
+        padding: 4px;
+        box-shadow: 0 2px 8px #0002;
+      }
+      .nav-title {
+        font-size: 1.36rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        color: var(--primary);
+        text-shadow: 0 2px 8px #000a;
+      }
+      .nav-links {
+        display: flex;
+        gap: 26px;
+      }
+      .nav-links a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 1.08rem;
+        font-weight: 700;
+        padding: 8px 0;
+        border-bottom: 2px solid transparent;
+        transition: border 0.18s, color 0.18s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+      }
+      /* Live Stats Hero */
+      .stats-hero {
+        background: linear-gradient(120deg, #181e2f 60%, #1e90ff22 100%);
+        padding: 80px 0 40px 0;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .stats-hero-icon {
+        font-size: 4.5rem;
+        color: var(--primary);
+        filter: drop-shadow(0 0 16px #1e90ff99);
+        margin-bottom: 18px;
+        animation: bounce 2.5s infinite alternate cubic-bezier(0.4, 2, 0.6, 1);
+      }
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-18px);
+        }
+      }
+      .stats-hero-title {
+        font-size: 2.6rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+        text-shadow: 0 4px 32px #1e90ff33;
+      }
+      .stats-hero-desc {
+        font-size: 1.23rem;
+        color: #b0d4ff;
+        max-width: 600px;
+        margin: 0 auto 18px auto;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+      /* Search Bar */
+      .user-search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 40px 0 0 0;
+        gap: 12px;
+      }
+      .user-search-bar input[type="text"] {
+        font-size: 1.15rem;
+        padding: 12px 22px;
+        border-radius: 8px 0 0 8px;
+        border: none;
+        outline: none;
+        background: #20232a;
+        color: #fff;
+        width: 280px;
+        transition: background 0.18s;
+      }
+      .user-search-bar input[type="text"]:focus {
+        background: #232f3e;
+      }
+      .user-search-bar button {
+        font-size: 1.15rem;
+        padding: 12px 28px;
+        border-radius: 0 8px 8px 0;
+        border: none;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        color: #fff;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background 0.18s, box-shadow 0.18s;
+        box-shadow: 0 2px 8px #1e90ff33;
+      }
+      .user-search-bar button:hover {
+        background: linear-gradient(90deg, #00c3ff 60%, #1e90ff 100%);
+        box-shadow: 0 0 18px #00c3ff88;
+      }
+      /* User Stats Card */
+      .user-stats-result {
+        display: flex;
+        justify-content: center;
+        margin: 36px 0 0 0;
+        min-height: 120px;
+      }
+      .user-stats-card {
+        background: #20232a;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px #1e90ff22;
+        padding: 36px 38px 32px 38px;
+        color: #e3f1ff;
+        min-width: 320px;
+        max-width: 420px;
+        width: 100%;
+        text-align: left;
+        animation: fadeIn 0.5s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .user-stats-card .user-title {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: var(--primary);
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .user-stats-card .user-id {
+        color: #7ecbff;
+        font-size: 1.05rem;
+        margin-bottom: 18px;
+        display: block;
+      }
+      .user-stats-card .stat-label {
+        color: #b0d4ff;
+        font-weight: 700;
+        margin-right: 8px;
+      }
+      .user-stats-card .stat-value {
+        color: #fff;
+        font-weight: 700;
+      }
+      .user-stats-card .stat-mvp {
+        color: var(--stats-purple);
+      }
+      .user-stats-card .stat-win {
+        color: var(--stats-green);
+      }
+      .user-stats-card .stat-loss {
+        color: var(--stats-red);
+      }
+      .user-stats-card ul {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+      }
+      .user-stats-card li {
+        margin-bottom: 10px;
+        font-size: 1.07rem;
+      }
+      .user-stats-card .no-user {
+        color: #ff5e62;
+        font-weight: 800;
+        font-size: 1.13rem;
+        text-align: center;
+        margin: 20px 0 0 0;
+      }
+      /* Footer (same as homepage) */
+      .modern-footer {
+        background: linear-gradient(90deg, #131b28 70%, #1e90ff33 100%);
+        color: #e3f1ff;
+        padding: 48px 0 18px 0;
+        box-shadow: 0 -2px 32px #1e90ff33;
+        font-family: "Montserrat", Arial, sans-serif;
+        margin-top: 64px;
+        border-top: 2px solid #1e90ff33;
+      }
+      .footer-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto 18px auto;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 0 24px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .footer-logo {
+        width: 56px;
+        filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        border-radius: 50%;
+        background: #fff;
+        padding: 7px;
+        box-shadow: 0 2px 12px #1e90ff33;
+        animation: footer-glow 2.5s infinite alternate;
+      }
+      @keyframes footer-glow {
+        0% {
+          filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        }
+        100% {
+          filter: drop-shadow(0 0 32px #00c3ffcc) brightness(1.22);
+        }
+      }
+      .footer-title {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 16px #1e90ff44;
+      }
+      .footer-tagline {
+        font-size: 1.08rem;
+        color: #7ecbff;
+        margin-top: 2px;
+        font-weight: 600;
+      }
+      .footer-links {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        color: #e3f1ff;
+        text-decoration: none;
+        font-size: 1.09rem;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.18s;
+      }
+      .footer-links a:after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        transition: width 0.22s cubic-bezier(0.4, 2, 0.6, 1);
+        margin-top: 2px;
+      }
+      .footer-links a:hover,
+      .footer-links a:focus {
+        color: #1e90ff;
+      }
+      .footer-links a:hover:after,
+      .footer-links a:focus:after {
+        width: 100%;
+      }
+      .footer-actions {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin: 20px 0 0 0;
+        flex-wrap: wrap;
+      }
+      .footer-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        color: #fff;
+        font-size: 1.12rem;
+        font-weight: 800;
+        padding: 14px 36px;
+        border-radius: 30px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 16px #1e90ff44;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+      }
+      .footer-action-btn:hover,
+      .footer-action-btn:focus {
+        background: linear-gradient(90deg, #00c3ff 60%, #1e90ff 100%);
+        box-shadow: 0 0 32px #00c3ff99;
+        transform: scale(1.05) translateY(-2px);
+      }
+      .server-btn::before {
+        content: "💬";
+        font-size: 1.3em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #5865f2cc);
+      }
+      .topgg-btn::before {
+        content: "⭐";
+        font-size: 1.25em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #1e90ffcc);
+      }
+      .footer-bottom {
+        text-align: center;
+        font-size: 1.05rem;
+        color: #b0b8c1;
+        margin-top: 36px;
+        padding-top: 10px;
+        border-top: 1px solid #1e90ff33;
+        letter-spacing: 0.5px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+      }
+      .footer-legal a {
+        color: #7ecbff;
+        text-decoration: none;
+        margin: 0 2px;
+        font-size: 1.01rem;
+        transition: color 0.18s;
+      }
+      .footer-legal a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      @media (max-width: 900px) {
+        .footer-main {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+          padding: 0 6vw;
+        }
+        .footer-title {
+          font-size: 1.2rem;
+        }
+        .footer-logo {
+          width: 36px;
+        }
+        .footer-links {
+          gap: 18px;
+        }
+        .footer-bottom {
+          font-size: 0.98rem;
+        }
+        .footer-actions {
+          gap: 12px;
+        }
+      }
+      @media (max-width: 600px) {
+        .stats-hero {
+          padding: 54px 0 24px 0;
+        }
+        .stats-hero-title {
+          font-size: 1.4rem;
+        }
+        .stats-hero-desc {
+          font-size: 1rem;
+        }
+        .user-stats-card {
+          min-width: 90vw;
+          max-width: 98vw;
+          padding: 22px 10px 22px 10px;
+        }
+        .user-stats-card .user-title {
+          font-size: 1rem;
+        }
+        .user-stats-card li {
+          font-size: 0.97em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img
+          src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+          alt="Blitz Soccer Custom Logo"
+        />
+        <span class="nav-title">Blitz Soccer</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Invite</a>
+        <a href="#">Support</a>
+        <a href="#" class="active">Live Stats</a>
+      </div>
+    </nav>
+    <!-- Live Stats Hero -->
+    <section class="stats-hero">
+      <div class="stats-hero-icon">📊</div>
+      <div class="stats-hero-title">Live Match Stats</div>
+      <div class="stats-hero-desc">
+        Stay up to date with real-time match results, player stats, and
+        leaderboards. Blitz Soccer brings the thrill of the pitch to your
+        Discord server—live!
+      </div>
+    </section>
+    <!-- User Search Bar -->
+    <form class="user-search-bar" id="userSearchForm" autocomplete="off">
+      <input
+        type="text"
+        id="userIdInput"
+        placeholder="Enter Discord User ID..."
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+    <!-- User Stats Result -->
+    <div class="user-stats-result" id="userStatsResult"></div>
+    <!-- Footer -->
+    <footer class="modern-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img
+            src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+            alt="Blitz Soccer Logo"
+            class="footer-logo"
+          />
+          <div>
+            <div class="footer-title">Blitz Soccer</div>
+            <div class="footer-tagline">
+              Where Discord meets the thrill of the pitch!
+            </div>
+          </div>
+        </div>
+        <nav class="footer-links">
+          <a href="#">Home</a>
+          <a href="#">Features</a>
+          <a href="#">Invite</a>
+          <a href="#">Support</a>
+          <a href="#">Commands</a>
+        </nav>
+      </div>
+      <div class="footer-actions">
+        <a
+          href="https://discord.gg/YOUR_INVITE"
+          target="_blank"
+          class="footer-action-btn server-btn"
+        >
+          <span>Official Discord Server</span>
+        </a>
+        <a
+          href="https://top.gg/bot/1305756227929772042"
+          target="_blank"
+          class="footer-action-btn topgg-btn"
+        >
+          <span>View on Top.gg</span>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Blitz Soccer. All rights reserved.</span>
+        <span class="footer-legal">
+          <a href="#">Privacy Policy</a> ·
+          <a href="#">Terms of Service</a>
+        </span>
+      </div>
+    </footer>
+    <script>
+      let userStatsData = {};
+
+      // Function to fetch the latest JSON file
+      async function fetchUserStats() {
+        try {
+          // Replace 'stats.json' with the actual path to your JSON file
+          const response = await fetch("stats.json?_=" + Date.now()); // Prevent caching
+          if (!response.ok) throw new Error("Network response was not ok");
+          userStatsData = await response.json();
+        } catch (err) {
+          console.error("Failed to fetch user stats JSON:", err);
+        }
+      }
+
+      // Fetch initially and then every 60 seconds
+      fetchUserStats();
+      setInterval(fetchUserStats, 60000);
+
+      const form = document.getElementById("userSearchForm");
+      const input = document.getElementById("userIdInput");
+      const resultDiv = document.getElementById("userStatsResult");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const userId = input.value.trim();
+        resultDiv.innerHTML = "";
+        if (userStatsData[userId]) {
+          const stats = userStatsData[userId];
+          resultDiv.innerHTML = `
+          <div class="user-stats-card">
+            <div class="user-title">${stats.username} <span style="font-size:1rem; color:#7ecbff;">(${userId})</span></div>
+            <div class="user-id">Club: <span class="stat-label">${stats.club}</span></div>
+            <ul>
+              <li><span class="stat-label">Matches:</span> <span class="stat-value">${stats.matches}</span></li>
+              <li><span class="stat-label">Goals:</span> <span class="stat-win">${stats.goals}</span></li>
+              <li><span class="stat-label">Assists:</span> <span class="stat-value">${stats.assists}</span></li>
+              <li><span class="stat-label">Wins:</span> <span class="stat-win">${stats.wins}</span></li>
+              <li><span class="stat-label">Losses:</span> <span class="stat-loss">${stats.losses}</span></li>
+              <li><span class="stat-label">MVP Awards:</span> <span class="stat-mvp">${stats.mvp}</span></li>
+            </ul>
+          </div>
+        `;
+        } else {
+          resultDiv.innerHTML = `
+          <div class="user-stats-card">
+            <div class="no-user">No stats found for this User ID.</div>
+          </div>
+        `;
+        }
+      });
+    </script>
+  </body>
+</html>
