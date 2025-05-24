@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Roleplay - Blitz Soccer Discord Bot</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navbar-height: 68px;
+        --primary: #1e90ff;
+        --accent: #00c3ff;
+        --bg-dark: #181b22;
+        --bg: #111;
+        --text: #fff;
+        --text-light: #cfd8dc;
+        --roleplay-purple: #a770ef;
+        --roleplay-pink: #ff5e62;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Montserrat", Arial, sans-serif;
+        min-height: 100vh;
+        min-width: 100vw;
+        overflow-x: hidden;
+      }
+      /* Navbar (same as homepage) */
+      .navbar {
+        width: 100vw;
+        left: 0;
+        top: 0;
+        background: rgba(18, 22, 32, 0.92);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: var(--navbar-height);
+        box-sizing: border-box;
+        border-bottom: 1.5px solid #1e90ff44;
+        position: relative;
+        z-index: 2;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-logo img {
+        width: 38px;
+        filter: drop-shadow(0 0 8px #1e90ff88);
+        border-radius: 50%;
+        background: #fff;
+        padding: 4px;
+        box-shadow: 0 2px 8px #0002;
+      }
+      .nav-title {
+        font-size: 1.36rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        color: var(--primary);
+        text-shadow: 0 2px 8px #000a;
+      }
+      .nav-links {
+        display: flex;
+        gap: 26px;
+      }
+      .nav-links a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 1.08rem;
+        font-weight: 700;
+        padding: 8px 0;
+        border-bottom: 2px solid transparent;
+        transition: border 0.18s, color 0.18s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+      }
+      /* Roleplay Hero */
+      .roleplay-hero {
+        background: linear-gradient(120deg, #221e2f 60%, #a770ef22 100%);
+        padding: 80px 0 40px 0;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .roleplay-hero-icon {
+        font-size: 4.5rem;
+        color: var(--roleplay-purple);
+        filter: drop-shadow(0 0 16px #a770ef99);
+        margin-bottom: 18px;
+        animation: floaty 2.5s infinite alternate cubic-bezier(0.4, 2, 0.6, 1);
+      }
+      @keyframes floaty {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-18px);
+        }
+      }
+      .roleplay-hero-title {
+        font-size: 2.6rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+        text-shadow: 0 4px 32px #a770ef33;
+      }
+      .roleplay-hero-desc {
+        font-size: 1.23rem;
+        color: #b0d4ff;
+        max-width: 600px;
+        margin: 0 auto 18px auto;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+      /* Roleplay Features Grid */
+      .roleplay-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 38px;
+        justify-content: center;
+        margin: 48px auto 0 auto;
+        max-width: 1100px;
+        padding: 0 24px;
+      }
+      .role-card {
+        background: #251e2f;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px #a770ef22;
+        flex: 1 1 320px;
+        min-width: 280px;
+        max-width: 360px;
+        padding: 36px 28px 28px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        transition: box-shadow 0.18s, transform 0.18s;
+      }
+      .role-card:hover {
+        box-shadow: 0 12px 48px #a770ef44, 0 2px 8px #ff5e6233;
+        transform: translateY(-4px) scale(1.03);
+      }
+      .role-card-icon {
+        font-size: 2.1rem;
+        margin-bottom: 12px;
+        filter: drop-shadow(0 0 8px #a770ef88);
+      }
+      .role-card-title {
+        font-size: 1.25rem;
+        font-weight: 900;
+        color: var(--roleplay-purple);
+        margin-bottom: 10px;
+        letter-spacing: 0.5px;
+      }
+      .role-card-desc {
+        font-size: 1.08rem;
+        color: #cfd8dc;
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+      /* Example Roleplay Command */
+      .roleplay-commands-section {
+        margin: 70px auto 0 auto;
+        max-width: 900px;
+        background: #251e2fee;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px #a770ef22;
+        padding: 44px 38px 44px 38px;
+        position: relative;
+        z-index: 1;
+      }
+      .roleplay-commands-title {
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--roleplay-purple);
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+        text-shadow: 0 4px 32px #a770ef33;
+      }
+      .roleplay-commands-list {
+        margin: 0;
+        padding: 0 0 0 18px;
+        list-style: disc;
+        color: #b0d4ff;
+      }
+      .roleplay-commands-list li {
+        margin-bottom: 14px;
+        font-size: 1.09em;
+        color: #e3f1ff;
+        line-height: 1.7;
+        word-break: break-word;
+        transition: color 0.15s;
+      }
+      .roleplay-commands-list li:hover {
+        color: var(--roleplay-purple);
+      }
+      .role-cmd {
+        color: #ff5e62;
+        font-family: monospace;
+        font-size: 1.09em;
+        background: #151b22;
+        padding: 2px 8px;
+        border-radius: 7px;
+        margin-right: 8px;
+        font-weight: 700;
+      }
+      /* Footer (same as homepage) */
+      .modern-footer {
+        background: linear-gradient(90deg, #131b28 70%, #1e90ff33 100%);
+        color: #e3f1ff;
+        padding: 48px 0 18px 0;
+        box-shadow: 0 -2px 32px #1e90ff33;
+        font-family: "Montserrat", Arial, sans-serif;
+        margin-top: 64px;
+        border-top: 2px solid #1e90ff33;
+      }
+      .footer-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto 18px auto;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 0 24px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .footer-logo {
+        width: 56px;
+        filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        border-radius: 50%;
+        background: #fff;
+        padding: 7px;
+        box-shadow: 0 2px 12px #1e90ff33;
+        animation: footer-glow 2.5s infinite alternate;
+      }
+      @keyframes footer-glow {
+        0% {
+          filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        }
+        100% {
+          filter: drop-shadow(0 0 32px #00c3ffcc) brightness(1.22);
+        }
+      }
+      .footer-title {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 16px #1e90ff44;
+      }
+      .footer-tagline {
+        font-size: 1.08rem;
+        color: #7ecbff;
+        margin-top: 2px;
+        font-weight: 600;
+      }
+      .footer-links {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        color: #e3f1ff;
+        text-decoration: none;
+        font-size: 1.09rem;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.18s;
+      }
+      .footer-links a:after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        transition: width 0.22s cubic-bezier(0.4, 2, 0.6, 1);
+        margin-top: 2px;
+      }
+      .footer-links a:hover,
+      .footer-links a:focus {
+        color: #1e90ff;
+      }
+      .footer-links a:hover:after,
+      .footer-links a:focus:after {
+        width: 100%;
+      }
+      .footer-actions {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin: 20px 0 0 0;
+        flex-wrap: wrap;
+      }
+      .footer-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        color: #fff;
+        font-size: 1.12rem;
+        font-weight: 800;
+        padding: 14px 36px;
+        border-radius: 30px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 16px #1e90ff44;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+      }
+      .footer-action-btn:hover,
+      .footer-action-btn:focus {
+        background: linear-gradient(90deg, #00c3ff 60%, #1e90ff 100%);
+        box-shadow: 0 0 32px #00c3ff99;
+        transform: scale(1.05) translateY(-2px);
+      }
+      .server-btn::before {
+        content: "💬";
+        font-size: 1.3em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #5865f2cc);
+      }
+      .topgg-btn::before {
+        content: "⭐";
+        font-size: 1.25em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #1e90ffcc);
+      }
+      .footer-bottom {
+        text-align: center;
+        font-size: 1.05rem;
+        color: #b0b8c1;
+        margin-top: 36px;
+        padding-top: 10px;
+        border-top: 1px solid #1e90ff33;
+        letter-spacing: 0.5px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+      }
+      .footer-legal a {
+        color: #7ecbff;
+        text-decoration: none;
+        margin: 0 2px;
+        font-size: 1.01rem;
+        transition: color 0.18s;
+      }
+      .footer-legal a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      @media (max-width: 900px) {
+        .footer-main {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+          padding: 0 6vw;
+        }
+        .footer-title {
+          font-size: 1.2rem;
+        }
+        .footer-logo {
+          width: 36px;
+        }
+        .footer-links {
+          gap: 18px;
+        }
+        .footer-bottom {
+          font-size: 0.98rem;
+        }
+        .footer-actions {
+          gap: 12px;
+        }
+        .roleplay-features {
+          gap: 18px;
+        }
+      }
+      @media (max-width: 600px) {
+        .roleplay-hero {
+          padding: 54px 0 24px 0;
+        }
+        .roleplay-hero-title {
+          font-size: 1.4rem;
+        }
+        .roleplay-hero-desc {
+          font-size: 1rem;
+        }
+        .role-card {
+          min-width: 90vw;
+          max-width: 98vw;
+          padding: 22px 10px 22px 10px;
+        }
+        .role-card-title {
+          font-size: 1rem;
+        }
+        .role-card-desc {
+          font-size: 0.97rem;
+        }
+        .role-card-icon {
+          font-size: 1.5rem;
+        }
+        .roleplay-commands-section {
+          padding: 22px 6px 22px 6px;
+        }
+        .roleplay-commands-title {
+          font-size: 1.15rem;
+        }
+        .roleplay-commands-list li {
+          font-size: 0.97em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img
+          src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+          alt="Blitz Soccer Custom Logo"
+        />
+        <span class="nav-title">Blitz Soccer</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Invite</a>
+        <a href="#">Support</a>
+        <a href="#" class="active">Roleplay</a>
+      </div>
+    </nav>
+    <!-- Roleplay Hero -->
+    <section class="roleplay-hero">
+      <div class="roleplay-hero-icon">🗺️</div>
+      <div class="roleplay-hero-title">Blitz Soccer Roleplay</div>
+      <div class="roleplay-hero-desc">
+        Immerse yourself in the Blitz Soccer open world! Take on roles, explore
+        the map, interact with other players, and shape your own football
+        story—all within Discord.
+      </div>
+    </section>
+    <!-- Roleplay Features -->
+    <section class="roleplay-features">
+      <div class="role-card">
+        <div class="role-card-icon">🧑‍🤝‍🧑</div>
+        <div class="role-card-title">Choose Your Role</div>
+        <div class="role-card-desc">
+          Become a player, coach, manager, or even a club owner. Every role
+          brings unique abilities and challenges!
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">🌍</div>
+        <div class="role-card-title">Explore the Map</div>
+        <div class="role-card-desc">
+          Visit stadiums, training grounds, shops, and more. Discover hidden
+          events and secret locations as you roam the Blitz Soccer world.
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">💬</div>
+        <div class="role-card-title">Interact & Roleplay</div>
+        <div class="role-card-desc">
+          Chat, form alliances, challenge rivals, and create your own football
+          narrative. The story is yours to write!
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">🎯</div>
+        <div class="role-card-title">Quests & Achievements</div>
+        <div class="role-card-desc">
+          Complete daily quests, unlock achievements, and earn exclusive rewards
+          for your roleplay progress.
+        </div>
+      </div>
+    </section>
+    <!-- Roleplay Commands -->
+    <section class="roleplay-commands-section">
+      <div class="roleplay-commands-title">Roleplay Commands</div>
+      <ul class="roleplay-commands-list">
+        <li>
+          <span class="role-cmd">/roleplay</span> → Enter the Blitz Soccer open
+          world roleplay map.
+        </li>
+        <li>
+          <span class="role-cmd">/quest</span> → View and complete daily quests.
+        </li>
+        <li>
+          <span class="role-cmd">/explore</span> → Explore new locations and
+          discover events.
+        </li>
+        <li>
+          <span class="role-cmd">/profile</span> → View your roleplay stats and
+          achievements.
+        </li>
+        <li>
+          <span class="role-cmd">/interact &lt;user&gt;</span> → Interact or
+          chat with another player.
+        </li>
+        <li>
+          <span class="role-cmd">/club</span> → Manage or join a club as part of
+          your roleplay journey.
+        </li>
+      </ul>
+    </section>
+    <!-- Footer -->
+    <footer class="modern-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img
+            src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+            alt="Blitz Soccer Logo"
+            class="footer-logo"
+          />
+          <div>
+            <div class="footer-title">Blitz Soccer</div>
+            <div class="footer-tagline">
+              Where Discord meets the thrill of the pitch!
+            </div>
+          </div>
+        </div>
+        <nav class="footer-links">
+          <a href="#">Home</a>
+          <a href="#">Features</a>
+          <a href="#">Invite</a>
+          <a href="#">Support</a>
+          <a href="#">Commands</a>
+        </nav>
+      </div>
+      <div class="footer-actions">
+        <a
+          href="https://discord.gg/YOUR_INVITE"
+          target="_blank"
+          class="footer-action-btn server-btn"
+        >
+          <span>Official Discord Server</span>
+        </a>
+        <a
+          href="https://top.gg/bot/1305756227929772042"
+          target="_blank"
+          class="footer-action-btn topgg-btn"
+        >
+          <span>View on Top.gg</span>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Blitz Soccer. All rights reserved.</span>
+        <span class="footer-legal">
+          <a href="#">Privacy Policy</a> ·
+          <a href="#">Terms of Service</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
