@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Terms & Conditions - Blitz Soccer Discord Bot</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navbar-height: 68px;
+        --primary: #1e90ff;
+        --accent: #00c3ff;
+        --bg-dark: #181b22;
+        --bg: #111;
+        --text: #fff;
+        --text-light: #cfd8dc;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Montserrat", Arial, sans-serif;
+        min-height: 100vh;
+        min-width: 100vw;
+        overflow-x: hidden;
+      }
+      /* Navbar (same as homepage) */
+      .navbar {
+        width: 100vw;
+        left: 0;
+        top: 0;
+        background: rgba(18, 22, 32, 0.92);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: var(--navbar-height);
+        box-sizing: border-box;
+        border-bottom: 1.5px solid #1e90ff44;
+        position: relative;
+        z-index: 2;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-logo img {
+        width: 38px;
+        filter: drop-shadow(0 0 8px #1e90ff88);
+        border-radius: 50%;
+        background: #fff;
+        padding: 4px;
+        box-shadow: 0 2px 8px #0002;
+      }
+      .nav-title {
+        font-size: 1.36rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        color: var(--primary);
+        text-shadow: 0 2px 8px #000a;
+      }
+      .nav-links {
+        display: flex;
+        gap: 26px;
+      }
+      .nav-links a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 1.08rem;
+        font-weight: 700;
+        padding: 8px 0;
+        border-bottom: 2px solid transparent;
+        transition: border 0.18s, color 0.18s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+      }
+      /* Main Terms Styling */
+      .terms-section {
+        max-width: 800px;
+        margin: 48px auto 40px auto;
+        background: #20232aee;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px #1e90ff22;
+        padding: 48px 38px 44px 38px;
+        position: relative;
+        z-index: 1;
+      }
+      .terms-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--primary);
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+        text-shadow: 0 4px 32px #1e90ff33;
+      }
+      .terms-updated {
+        color: #7ecbff;
+        font-size: 1.01rem;
+        margin-bottom: 32px;
+        font-weight: 600;
+      }
+      .terms-section h2 {
+        color: #00c3ff;
+        font-size: 1.35rem;
+        margin-top: 36px;
+        margin-bottom: 10px;
+        font-weight: 800;
+      }
+      .terms-section h3 {
+        color: #1e90ff;
+        font-size: 1.13rem;
+        margin-top: 22px;
+        margin-bottom: 7px;
+        font-weight: 700;
+      }
+      .terms-section p,
+      .terms-section ul {
+        color: #cfd8dc;
+        font-size: 1.08rem;
+        line-height: 1.7;
+        margin-bottom: 16px;
+        margin-top: 0;
+      }
+      .terms-section ul {
+        padding-left: 22px;
+      }
+      .terms-section li {
+        margin-bottom: 7px;
+      }
+      .terms-section a {
+        color: #1e90ff;
+        text-decoration: underline;
+        transition: color 0.18s;
+      }
+      .terms-section a:hover {
+        color: #00c3ff;
+      }
+      /* Footer (same as homepage) */
+      .modern-footer {
+        background: linear-gradient(90deg, #131b28 70%, #1e90ff33 100%);
+        color: #e3f1ff;
+        padding: 48px 0 18px 0;
+        box-shadow: 0 -2px 32px #1e90ff33;
+        font-family: "Montserrat", Arial, sans-serif;
+        margin-top: 64px;
+        border-top: 2px solid #1e90ff33;
+      }
+      .footer-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto 18px auto;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 0 24px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .footer-logo {
+        width: 56px;
+        filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        border-radius: 50%;
+        background: #fff;
+        padding: 7px;
+        box-shadow: 0 2px 12px #1e90ff33;
+        animation: footer-glow 2.5s infinite alternate;
+      }
+      @keyframes footer-glow {
+        0% {
+          filter: drop-shadow(0 0 16px #1e90ffcc) brightness(1.12);
+        }
+        100% {
+          filter: drop-shadow(0 0 32px #00c3ffcc) brightness(1.22);
+        }
+      }
+      .footer-title {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 16px #1e90ff44;
+      }
+      .footer-tagline {
+        font-size: 1.08rem;
+        color: #7ecbff;
+        margin-top: 2px;
+        font-weight: 600;
+      }
+      .footer-links {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        color: #e3f1ff;
+        text-decoration: none;
+        font-size: 1.09rem;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.18s;
+      }
+      .footer-links a:after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        transition: width 0.22s cubic-bezier(0.4, 2, 0.6, 1);
+        margin-top: 2px;
+      }
+      .footer-links a:hover,
+      .footer-links a:focus {
+        color: #1e90ff;
+      }
+      .footer-links a:hover:after,
+      .footer-links a:focus:after {
+        width: 100%;
+      }
+      .footer-actions {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin: 20px 0 0 0;
+        flex-wrap: wrap;
+      }
+      .footer-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #1e90ff 60%, #00c3ff 100%);
+        color: #fff;
+        font-size: 1.12rem;
+        font-weight: 800;
+        padding: 14px 36px;
+        border-radius: 30px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 16px #1e90ff44;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+      }
+      .footer-action-btn:hover,
+      .footer-action-btn:focus {
+        background: linear-gradient(90deg, #00c3ff 60%, #1e90ff 100%);
+        box-shadow: 0 0 32px #00c3ff99;
+        transform: scale(1.05) translateY(-2px);
+      }
+      .server-btn::before {
+        content: "💬";
+        font-size: 1.3em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #5865f2cc);
+      }
+      .topgg-btn::before {
+        content: "⭐";
+        font-size: 1.25em;
+        margin-right: 8px;
+        filter: drop-shadow(0 0 8px #1e90ffcc);
+      }
+      .footer-bottom {
+        text-align: center;
+        font-size: 1.05rem;
+        color: #b0b8c1;
+        margin-top: 36px;
+        padding-top: 10px;
+        border-top: 1px solid #1e90ff33;
+        letter-spacing: 0.5px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+      }
+      .footer-legal a {
+        color: #7ecbff;
+        text-decoration: none;
+        margin: 0 2px;
+        font-size: 1.01rem;
+        transition: color 0.18s;
+      }
+      .footer-legal a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      @media (max-width: 900px) {
+        .footer-main {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+          padding: 0 6vw;
+        }
+        .footer-title {
+          font-size: 1.2rem;
+        }
+        .footer-logo {
+          width: 36px;
+        }
+        .footer-links {
+          gap: 18px;
+        }
+        .footer-bottom {
+          font-size: 0.98rem;
+        }
+        .footer-actions {
+          gap: 12px;
+        }
+      }
+      @media (max-width: 500px) {
+        .terms-section {
+          padding: 24px 8px 24px 8px;
+        }
+        .footer-main {
+          padding: 0 2vw;
+        }
+        .footer-title {
+          font-size: 1rem;
+        }
+        .footer-logo {
+          width: 22px;
+        }
+        .footer-links {
+          gap: 10px;
+        }
+        .footer-links a {
+          font-size: 0.97rem;
+        }
+        .footer-bottom {
+          font-size: 0.93rem;
+        }
+        .footer-actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .footer-action-btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img
+          src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+          alt="Blitz Soccer Custom Logo"
+        />
+        <span class="nav-title">Blitz Soccer</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Invite</a>
+        <a href="#">Support</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#" class="active">Terms of Service</a>
+      </div>
+    </nav>
+    <!-- Terms Content -->
+    <section class="terms-section">
+      <div class="terms-title">Terms & Conditions</div>
+      <div class="terms-updated">Last updated: May 23, 2025</div>
+
+      <p>
+        Welcome to Blitz Soccer ("the Bot"). By inviting, using, or interacting
+        with the Bot on Discord, you agree to these Terms & Conditions. Please
+        read them carefully. If you do not agree, you must not use the Bot.
+      </p>
+
+      <h2>1. Use of the Bot</h2>
+      <ul>
+        <li>
+          You must comply with Discord’s
+          <a href="https://discord.com/terms" target="_blank"
+            >Terms of Service</a
+          >
+          and
+          <a href="https://discord.com/guidelines" target="_blank"
+            >Community Guidelines</a
+          >.
+        </li>
+        <li>
+          The Bot is provided for entertainment and utility purposes only.
+        </li>
+        <li>You must be at least 13 years old to use Discord and this Bot.</li>
+        <li>
+          You are responsible for any content or actions taken using the Bot on
+          your server.
+        </li>
+      </ul>
+
+      <h2>2. Data and Privacy</h2>
+      <ul>
+        <li>
+          By using the Bot, you consent to the collection and use of data as
+          described in our <a href="#">Privacy Policy</a>.
+        </li>
+        <li>We do not sell your data or use it for advertising.</li>
+        <li>
+          You may request deletion of your data at any time via our
+          <a href="https://discord.gg/YOUR_INVITE" target="_blank"
+            >Support Server</a
+          >.
+        </li>
+      </ul>
+
+      <h2>3. Prohibited Uses</h2>
+      <ul>
+        <li>
+          You may not use the Bot for illegal activities, harassment, spam, or
+          to violate Discord’s rules.
+        </li>
+        <li>
+          Do not attempt to exploit, reverse engineer, or disrupt the Bot or its
+          services.
+        </li>
+        <li>Automated or malicious use is strictly forbidden.</li>
+      </ul>
+
+      <h2>4. Availability and Updates</h2>
+      <ul>
+        <li>
+          We reserve the right to add, remove, or modify features at any time
+          without notice.
+        </li>
+        <li>
+          The Bot may be unavailable during maintenance, outages, or updates.
+        </li>
+        <li>
+          We are not responsible for any loss or damages resulting from downtime
+          or data loss.
+        </li>
+      </ul>
+
+      <h2>5. Termination</h2>
+      <ul>
+        <li>
+          We may remove the Bot from any server or block users at our discretion
+          for violations of these terms or abuse.
+        </li>
+        <li>You may remove the Bot from your server at any time.</li>
+      </ul>
+
+      <h2>6. Limitation of Liability</h2>
+      <p>
+        The Bot is provided "as is" without warranties of any kind. We are not
+        liable for any damages, losses, or issues arising from your use of the
+        Bot.
+      </p>
+
+      <h2>7. Changes to These Terms</h2>
+      <p>
+        We may update these Terms & Conditions at any time. Continued use of the
+        Bot after changes constitutes acceptance of the new terms. Major changes
+        will be announced in our support server or on our website.
+      </p>
+
+      <h2>8. Contact</h2>
+      <p>
+        For questions or concerns about these Terms, please contact us via our
+        <a href="https://discord.gg/YOUR_INVITE" target="_blank"
+          >Official Discord Server</a
+        >.
+      </p>
+    </section>
+    <!-- Footer -->
+    <footer class="modern-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img
+            src="https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/256/soccer-ball-o.png"
+            alt="Blitz Soccer Logo"
+            class="footer-logo"
+          />
+          <div>
+            <div class="footer-title">Blitz Soccer</div>
+            <div class="footer-tagline">
+              Where Discord meets the thrill of the pitch!
+            </div>
+          </div>
+        </div>
+        <nav class="footer-links">
+          <a href="#">Home</a>
+          <a href="#">Features</a>
+          <a href="#">Invite</a>
+          <a href="#">Support</a>
+          <a href="#">Commands</a>
+        </nav>
+      </div>
+      <div class="footer-actions">
+        <a
+          href="https://discord.gg/YOUR_INVITE"
+          target="_blank"
+          class="footer-action-btn server-btn"
+        >
+          <span>Official Discord Server</span>
+        </a>
+        <a
+          href="https://top.gg/bot/1305756227929772042"
+          target="_blank"
+          class="footer-action-btn topgg-btn"
+        >
+          <span>View on Top.gg</span>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Blitz Soccer. All rights reserved.</span>
+        <span class="footer-legal">
+          <a href="#">Privacy Policy</a> ·
+          <a href="#">Terms of Service</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
